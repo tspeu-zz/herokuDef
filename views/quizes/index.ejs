@@ -1,0 +1,36 @@
+<form class="" action="/quizes" method="get">
+  <label for="search">Filtrar por:</label>
+  <input type="text" name="search" value="" />
+  <input type="submit" value="buscar">
+</form>
+
+<table>
+  <% var i; for (i = 0; i < quizes.length; i++) { %>
+    <tr>
+      <td>
+        <span class="capitalize"><%= quizes[i].tema %></span>
+      </td>
+      <td>
+        <a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a>
+      </td>
+      
+      <td>
+        <a href="quizes/<%= quizes[i].id %>/edit"><button>Editar</button></a>
+      </td>
+      <td>
+        <form action="quizes/<%= quizes[i].id %>?_method=delete" method="post">
+          <button type="submit" onclick="return confirm('Borrar: <%= quizes[i].pregunta %>');">
+            Borrar
+          </button>
+        </form>
+      </td>
+      
+    </tr>
+  <% } %>
+</table>
+
+
+<p>
+  <a href="/quizes/new"><button type="button">Crear nueva pregunta</button></a>
+</p>
+

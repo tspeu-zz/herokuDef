@@ -1,0 +1,12 @@
+body { background: #999; }
+
+#page-wrap:after { content: ""; }
+
+#s1 { min-height: 200px; }
+
+nav       { float: left; width: 15%; height: 200px ;}
+nav span  { margin: 0px 100px 0px 0px;}
+section   { float: right; width: 80%; height: 100% ;}
+footer    { clear: both;  display: block; }
+
+img, video { margin: 10px; }
