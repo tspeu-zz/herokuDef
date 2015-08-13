@@ -6,14 +6,13 @@
 
 <table>
   <% var i; for (i = 0; i < quizes.length; i++) { %>
-    <tr>
-      <td>
+    <tr><td>
         <span class="capitalize"><%= quizes[i].tema %></span>
       </td>
       <td>
         <a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a>
       </td>
-      
+      <% if (session.user) { %>
       <td>
         <a href="quizes/<%= quizes[i].id %>/edit"><button>Editar</button></a>
       </td>
@@ -24,13 +23,13 @@
           </button>
         </form>
       </td>
-      
+        <% } %>
     </tr>
   <% } %>
 </table>
 
-
+<% if (session.user) { %>
 <p>
   <a href="/quizes/new"><button type="button">Crear nueva pregunta</button></a>
 </p>
-
+<% } %>
