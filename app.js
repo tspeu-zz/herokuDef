@@ -27,17 +27,16 @@ app.use(logger('dev'));
 app.use(bodyParser.json());     // no debe ser false
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var secret = 'Quiz 2015';
-app.use(cookieParser(secret));
 
-app.use(session({ resave: true, saveUninitialized: false, secret: secret }));
+app.use(cookieParser('Quiz 2015'));
+app.use(session());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Helpers dinámicos
 app.use(function (req, res, next) {
 
-  // guardar path en session.redir para redirigir a la página en la que estabamos
+  // guardar path en session.redir para despues login
   if (!req.path.match(/\/login|\/logout/)) {
     req.session.redir = req.path;
   }
