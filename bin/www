@@ -2,9 +2,12 @@
 var debug = require('debug')('quiz');
 var app = require('../app');
 var fs = require("fs");
-//var https = require("https");
+var https = require("https");
 
-
+var options = {
+  key: fs.readFileSync('certs/quiz-2015-key.pem').toString(),
+  cert: fs.readFileSync('certs/quiz-2015-cert.pem').toString()
+};
 
 var port = process.env.PORT || 3000;
 var https_port = process.env.HTTPS_PORT || 8443;
@@ -15,7 +18,7 @@ var server = app.listen(app.get('port'), function() {
   debug('Express server listening on port ' + server.address().port);
 });
 
-//var serverSecure = https.createServer(options, app);
-//serverSecure.listen(https_port, function () {
-//  debug('Express server listening on port ' + server.address().port);
-//});
+var serverSecure = https.createServer(options, app);
+serverSecure.listen(https_port, function () {
+ debug('Express server listening on port ' + server.address().port);
+});

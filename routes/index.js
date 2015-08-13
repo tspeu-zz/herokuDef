@@ -15,9 +15,9 @@ router.get('/author', function(req, res) {
 });
 
 
-
-
 router.param('quizId', quizController.load); // autoload :quizId
+router.param('commentId', commentController.load); // autoload :commentId
+
 // Definición de sesion
 router.get('/login', sessionController.new); // formulario de login
 router.post('/login', sessionController.create); // crear sesión
@@ -35,6 +35,11 @@ router.delete('/quizes/:quizId(\\d+)',sessionController.loginRequired, 	quizCont
 
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments', commentController.create);
+
+  // debería ser un PUT
+router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish',
+sessionController.loginRequired,commentController.publish);
+
 
 
 
