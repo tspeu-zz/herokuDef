@@ -5,8 +5,10 @@ var temasAceptados = models.Subject.temasAceptados;
 
 // Autoload - factoriza el código si ruta incluye :quizId
 exports.load = function (req, res, next, quizId) {
-  models.Quiz
-.findById(Number(quizId))
+  models.Quiz.findById(
+          Number(quizId),
+          { include: [{ model: models.Comment }] } //incluir comentarios asociados
+          )
   .then(function (quiz) {
     if (quiz) {
       req.quiz = quiz;
@@ -20,10 +22,10 @@ exports.load = function (req, res, next, quizId) {
 
 // GET /quizes
 exports.index = function (req, res) {
-  
+
   models.Quiz.findAll({
           where: ["lower(pregunta) like ?", helpers.sanitize(req.query.search).toLowerCase()],
-          order: ["pregunta"] 
+          order: ["pregunta"]
           })
   .then(function (quizes) {
     res.render('quizes/index.ejs', { quizes: quizes, errors: [] });
@@ -78,7 +80,7 @@ exports.create= function (req, res) {
   })
   .catch(function(error) { next(error); });
 
-  
+
 };
 
 // GET /quizes/:quizId/edit
@@ -100,16 +102,16 @@ exports.update = function (req, res) {
       if (err) {
         res.render('quizes/edit', {quiz: req.quiz, errors: err.errors, temas: temasAceptados});
       } else {
-        
+
         req.quiz
         .save({ fields: ["pregunta", "respuesta", "tema"] })
         .then(function() { res.redirect('/quizes');});
-      }     
+      }
     }
   )
   .catch(function(error) { next(error); });
 
-  
+
 };
 
 // DELETE /quizes/:quizId
