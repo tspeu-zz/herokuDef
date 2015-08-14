@@ -5,6 +5,8 @@ var quizController = require('../controllers/quiz_controller');
 //ruta de comentarios
 var commentController = require('../controllers/comment_controller');
 var sessionController = require('../controllers/session_controller');
+//estadisticas
+var statisticsController = require('../controllers/statistics_controller');
 
 router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz', errors: [] });
@@ -40,7 +42,8 @@ router.post('/quizes/:quizId(\\d+)/comments', commentController.create);
 router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish',
 sessionController.loginRequired,commentController.publish);
 
-
+//  ruta para las estadísticas
+router.get('/quizes/statistics', statisticsController.calculate, statisticsController.show);
 
 
 module.exports = router;

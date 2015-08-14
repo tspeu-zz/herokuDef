@@ -1,21 +1,26 @@
 <form method="get" action="/quizes/<%= quiz.id %>/answer">
-  <h2><p>Pregunta: <%= quiz.pregunta %></p></h2>
-  <input style="font-size:18px" type="text" name="respuesta" value="responda aquí, por favor!" />
-  <input type="submit" name="submit" value="Enviar" style="font-size:18px"/>
+  <h2><p>Pregunta: <%= quiz.pregunta %></p></h2><br>
+  <input style="font-size:18px" type="text" name="respuesta" value="respuesta!" />
+  <input type="submit" name="submit" value="Enviar" style="font-size:16px"/>
 </form>
-
+<br>
+<hr>
 <p>
     <a href="/quizes/<%= quiz.id %>/comments/new">
     <button type="button" name="button"  style="font-size:18px">Insertar Nuevo comentario</button></a>
 </p>
-<p><strong>Comentarios:</strong></p>
-<% for (index in quiz.Comments) { %>
-  <% if (quiz.Comments[index].publicado || session.user) { %>
-  <p>- <%= quiz.Comments[index].texto %>
-      <% if (session.user && !quiz.Comments[index].publicado) { %>
-      <a href="/quizes/<%= quiz.id %>/comments/<%= quiz.Comments[index].id %>/publish">
-      <button type="button" name="button">Publicar</button></a>
-    <% } %>
-    </p>
-  <% } %>
-<% } %>
+<p><h2><strong>Comentarios:</strong></h2></p>
+  <ul>
+    <li>
+      <% for (index in quiz.Comments) { %>
+        <% if (quiz.Comments[index].publicado || session.user) { %>
+        <p>- <%= quiz.Comments[index].texto %>
+            <% if (session.user && !quiz.Comments[index].publicado) { %>
+            <a href="/quizes/<%= quiz.id %>/comments/<%= quiz.Comments[index].id %>/publish">
+            <br><button type="button" name="button" style="font-size:14px">Publicar</button></a>
+          <% } %>
+          </p>
+        <% } %>
+      <% } %>
+    </li>
+</ul>

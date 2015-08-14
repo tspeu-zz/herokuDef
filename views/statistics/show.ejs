@@ -1,0 +1,9 @@
+<h2>Página de estadísticas</h2>
+
+<ul class ="">
+  <li>Número de preguntas: <%= statistics.quizes %></li>
+  <li>Total de comentarios : <%= statistics.comments %></li>
+  <li>Número medio de comentarios por pregunta: <%= statistics.quizes?(statistics.comments / statistics.quizes).toFixed(2):0 %></li>
+  <li>Número de preguntas sin comentarios: <%= statistics.quizes - statistics.commentedQuizes %></li>
+  <li>Número de preguntas con comentarios: <%= statistics.commentedQuizes %></li>
+</ul>

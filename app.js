@@ -8,7 +8,7 @@ var partials = require('express-partials');
 var methodOverride = require('method-override');
 var session = require('express-session');
 
-
+var autoLogout = require('./middlewares/auto-logout');
 
 var routes = require('./routes/index');
 
@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use(cookieParser('Quiz 2015'));
-app.use(session());
+app.use(session({ resave: true, saveUninitialized: false }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -46,7 +46,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-//app.use(autoLogout());
+app.use(autoLogout());
 
 app.use('/', routes);
 

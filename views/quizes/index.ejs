@@ -1,9 +1,9 @@
 <form class="" action="/quizes" method="get">
   <label for="search">Filtrar por:</label>
   <input type="text" name="search" value="" />
-  <input type="submit" value="buscar">
+  <input type="submit" value="buscar" style="font-size:16px">
 </form>
-
+<br><hr>
 <table>
   <% var i; for (i = 0; i < quizes.length; i++) { %>
     <tr><td>
@@ -29,7 +29,7 @@
 </table>
 
 <% if (session.user) { %>
-<p>
-  <a href="/quizes/new"><button type="button">Crear nueva pregunta</button></a>
+<hr><br><p>
+  <a href="/quizes/new"><button type="button" style="font-size:16px">Crear nueva pregunta</button></a>
 </p>
 <% } %>

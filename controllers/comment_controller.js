@@ -1,15 +1,14 @@
 var models = require('../models/models.js');
+var helpers = require('./helpers.js');
 
 // Autoload :commentId de comentarios
 exports.load = function (req, res, next, commentId) {
-  models.Comment .findById(Number(commentId))
+  models.Comment.findById(Number(commentId))
   .then(function (comment) {
-    if (comment)
-    {
+    if (comment) {
       req.comment = comment;
       next();
-    } else
-    {
+    } else {
       next(new Error('No existe commentId=' + commentId));
     }
   })
@@ -17,11 +16,10 @@ exports.load = function (req, res, next, commentId) {
 };
 
 // GET /quizes/:quizId/comments/new
-exports.new = function(req, res) {
-  res.render('comments/new.ejs',
-  {
-    quizid: req.params.quizId, errors: []
-  });
+exports.new = function(req, res)
+{
+  res.render('comments/new.ejs', {
+    quizid: req.params.quizId, errors: [] });
 };
 
 // POST /quizes/:quizId/comments
@@ -33,16 +31,14 @@ exports.create = function(req, res) {
     }
   );
 
-  comment.validate().then(
+  comment
+  .validate()
+  .then(
     function(err){
       if (err) {
-        res.render('comments/new.ejs',
-        {
-          quizid: req.params.quizId,
-          comment: comment,
-          errors: err.errors
-        });
-      } else {
+        res.render('comments/new.ejs', { quizid: req.params.quizId, comment: comment, errors: err.errors });
+      } else
+      {
         comment // save: guarda en DB campo texto de comment
         .save()
         .then(function() { res.redirect('/quizes/'+req.params.quizId); });
@@ -57,7 +53,9 @@ exports.publish = function (req, res) {
   req.comment.publicado = true;
 
   req.comment.save( { fields: ["publicado"] })
-  .then( function () { res.redirect('/quizes/' + req.params.quizId);
+  .then( function ()
+  {
+    res.redirect('/quizes/' + req.params.quizId);
   })
   .catch(function (error) { next(error); });
 };

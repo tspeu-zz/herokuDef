@@ -64,9 +64,7 @@ exports.new = function (req, res) {
 exports.create= function (req, res) {
   var quiz = models.Quiz.build(req.body.quiz);
 
-  quiz
-  .validate()
-  .then(function (err) {
+  quiz.validate().then(function (err) {
     if (err) {
       res.render('quizes/new', { quiz: quiz, errors: err.errors, temas: temasAceptados });
     } else {
@@ -79,7 +77,6 @@ exports.create= function (req, res) {
     }
   })
   .catch(function(error) { next(error); });
-
 
 };
 
@@ -95,9 +92,7 @@ exports.update = function (req, res) {
   req.quiz.respuesta = req.body.quiz.respuesta;
   req.quiz.tema = req.body.quiz.tema;
 
-  req.quiz
-  .validate()
-  .then(
+  req.quiz.validate().then(
     function(err){
       if (err) {
         res.render('quizes/edit', {quiz: req.quiz, errors: err.errors, temas: temasAceptados});
@@ -110,7 +105,6 @@ exports.update = function (req, res) {
     }
   )
   .catch(function(error) { next(error); });
-
 
 };
 
